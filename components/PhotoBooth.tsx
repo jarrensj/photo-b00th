@@ -79,6 +79,7 @@ const PhotoBooth: React.FC<Props> = ({
     setShowModal(false);
     setUploadResult(null);
     setIsUploaded(false);
+    setIsUploading(false);
 
     const newPhotos: string[] = [];
   
@@ -173,7 +174,7 @@ const PhotoBooth: React.FC<Props> = ({
   };
 
   const uploadPhoto = async () => {
-    if (!canvasRef.current || isUploaded) return;
+    if (!canvasRef.current) return;
     setIsUploading(true);
 
     try {
@@ -221,6 +222,7 @@ const PhotoBooth: React.FC<Props> = ({
       }
     } catch (err) {
       console.error('Error uploading image:', err);
+      setIsUploaded(false);
     } finally {
       setIsUploading(false);
     }
